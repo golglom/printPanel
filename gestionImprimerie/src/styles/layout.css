@@ -1,0 +1,78 @@
+.layout-container {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0d1117;
+    transition: all 0.3s ease;
+  }
+  
+  .layout-navbar {
+    transition: background-color 0.3s ease;
+  }
+  
+  .layout-navbar:hover {
+    background-color: #221616;
+  }
+  
+  .logo-glow {
+    text-shadow: 0 0 5px #00ffb3, 0 0 10px #00ffb3, 0 0 15px #00ffb3,
+     0 0 15px #00b38f, 0 0 25px #00b38f, 0 0 35px #00b38f;
+    
+}
+
+  
+  .sidebar {
+    width: 250px;
+    min-height: 100vh;
+    border-right: 1px solid #30363d;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    position: absolute;
+    z-index: 1000;
+  }
+  
+  .sidebar.show {
+    transform: translateX(0);
+  }
+  
+  @media (min-width: 992px) {
+    .sidebar {
+      transform: translateX(0);
+      position: relative;
+    }
+  }
+  
+  .custom-link {
+    color: #ccc !important;
+    border-radius: 5px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  
+  .custom-link:hover {
+    background-color: #21242d;
+    transform: translateX(5px);
+    color: #1f60eb ;
+  }
+  
+  .custom-link.active {
+    background-color: #71eb1f ;
+    color: #fff ;
+  }
+  
+  .logout-hover:hover {
+    transform: scale(1.05);
+  }
+  
+  .animated-main {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
