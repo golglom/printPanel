@@ -14,7 +14,12 @@ connectDB();
 const app = express();
 
 
-app.use(cors());
+app.use(cors({
+
+  origin: 'print-panel-qkzu.vercel.app' ,
+  credentials: true
+}
+));
 app.use(express.json());
 
 
