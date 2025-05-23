@@ -16,7 +16,7 @@ function Register() {
     e.preventDefault();
     setError('');
     try {
-      await axios.post('http://localhost:3000/api/auth/register', form);
+      await axios.post('https://printpanel.onrender.com/api/auth/register', form);
       localStorage.setItem('isRegistered', 'true');
       navigate('/login');
     } catch (err) {
