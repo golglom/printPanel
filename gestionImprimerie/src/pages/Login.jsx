@@ -18,7 +18,7 @@ function Login() {
     e.preventDefault();
     setError('');
     try {
-      const response = await axios.post('http://localhost:3000/api/auth/login', form);
+      const response = await axios.post('https://printpanel.onrender.com/api/auth/login', form);
       login(response.data.token);
       navigate('/dashboard');
     } catch (err) {
