@@ -47,9 +47,9 @@ function Products() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleEdit = (product) => {
-    setFormData(product);
-    setEditId(product._id);
+  const handleEdit = (prod) => {
+    setFormData(prod);
+    setEditId(prod._id);
   };
 
   const handleDelete = async (id) => {
