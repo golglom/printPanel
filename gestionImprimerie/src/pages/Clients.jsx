@@ -66,7 +66,7 @@ function Clients() {
   return (
     <div>
       <h2 className="text-light mb-4">Clients</h2>
-      
+
       {(userRole === 'admin' || userRole === 'manager') && (
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="row g-3">
@@ -80,11 +80,12 @@ function Clients() {
                 value={formData[field]}
                 onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
                 required
+                disabled={isReadBy}
               />
             </div>
           ))}
           <div className="col-12 col-md-3">
-            <button type="submit" className="btn btn-success w-100">
+            <button type="submit" className="btn btn-success w-100" disabled={isReadBy}>
               {editId ? 'Modifier' : 'Ajouter'}
             </button>
           </div>

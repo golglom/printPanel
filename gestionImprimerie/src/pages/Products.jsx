@@ -82,11 +82,12 @@ function Products() {
                 value={formData[field]}
                 onChange={handleChange}
                 required
+                disabled={isReadBy}
               />
             </div>
           ))}
           <div className="col-12 col-md-3">
-            <button type="submit" className="btn btn-success w-100">
+            <button type="submit" className="btn btn-success w-100" disabled={isReadBy}>
               {editId ? 'Modifier' : 'Ajouter'}
             </button>
           </div>
