@@ -1,19 +1,14 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink} from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/layout.css';
 
 function Layout() {
-  const navigate = useNavigate();
-  const { logout } = useAuth();
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+
 
   useEffect(() => {
     document.body.style.backgroundColor = '#0d1117';
@@ -32,8 +27,10 @@ function Layout() {
 
         <div className="ms-auto d-flex align-items-center gap-3">
           <span className="text-light">👋 Bienvenue, Admin</span>
-          <button onClick={handleLogout} className="btn btn-sm btn-outline-danger logout-hover">
-            <i className="bi bi-box-arrow-right me-1"></i> Déconnexion
+          <button className="btn btn-sm btn-outline-danger logout-hover">
+            <Link to="/login" >
+              Déconnexion
+            </Link>
           </button>
         </div>
       </nav>
