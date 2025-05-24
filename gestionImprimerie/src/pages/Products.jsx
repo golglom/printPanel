@@ -10,8 +10,7 @@ function Products() {
 
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const userRole = localStorage.getItem('role');
-  const isReadBy = userRole !== 'admin' && userRole !== 'manager';
+
 
   useEffect(() => {
     fetchProducts();
@@ -113,7 +112,6 @@ function Products() {
                 <td>{prod.category}</td>
                 <td>{prod.lastUpdated ? new Date(prod.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                {!isReadBy && (
                     <>
                       <button onClick={() => handleEdit(prod)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
@@ -122,7 +120,6 @@ function Products() {
                         <i className="bi bi-trash"></i>
                       </button>
                     </>
-                  )}
                 </td>
               </tr>
             ))}

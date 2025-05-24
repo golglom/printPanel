@@ -11,7 +11,7 @@ function Users() {
   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('role');
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const isReadBy = userRole !== 'admin' && userRole !== 'manager';
+  const isReadBy = userRole !== 'admin';
 
   useEffect(() => {
     fetchUsers();

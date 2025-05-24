@@ -9,16 +9,16 @@ const clientRouter = express.Router();
 clientRouter.get('/', protect, getClients);
 
 // Add 
-clientRouter.post('/', protect, requireRole(['admin', 'manager']),addClient);
+clientRouter.post('/', protect,addClient);
 
 // Update
 clientRouter.patch('/:id', protect,updateClient);
 
 // Add 
-clientRouter.post('/:id/orders', protect, requireRole(['admin', 'manager']), getClientOrders);
+clientRouter.post('/:id/orders', protect, getClientOrders);
 
 // Delete
-clientRouter.delete('/:id', protect, requireRole(['admin']), deleteClient);
+clientRouter.delete('/:id', protect, deleteClient);
 
 
 export default clientRouter;

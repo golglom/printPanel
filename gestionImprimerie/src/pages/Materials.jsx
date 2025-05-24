@@ -11,8 +11,7 @@ function Materials() {
 
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const userRole = localStorage.getItem('role');
-  const isReadBy = userRole !== 'admin' && userRole !== 'manager';
+
 
   useEffect(() => {
     fetchMaterials();
@@ -66,7 +65,6 @@ function Materials() {
     <div>
       <h2 className="text-light mb-4">Matières premières</h2>
 
-      {(userRole === 'admin' || userRole === 'manager') && (
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="row g-3">
           {['name', 'quantity', 'supplier', 'cost'].map((field, i) => (
@@ -79,18 +77,16 @@ function Materials() {
                 value={formData[field]}
                 onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
                 required
-                disabled={isReadBy}
               />
             </div>
           ))}
           <div className="col-12 col-md-3">
-            <button type="submit" className="btn btn-success w-100" disabled={isReadBy}>
+            <button type="submit" className="btn btn-success w-100">
               {editId ? 'Modifier' : 'Ajouter'}
             </button>
           </div>
         </div>
       </form>
-      )}
 
       <div className="table-responsive">
         <table className="table table-dark table-bordered">
@@ -113,7 +109,6 @@ function Materials() {
                 <td>{mat.cost} FCFA</td>
                 <td>{mat.lastUpdated ? new Date(mat.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                {!isReadBy && (
                     <>
                       <button onClick={() => handleEdit(mat)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
@@ -122,7 +117,6 @@ function Materials() {
                         <i className="bi bi-trash"></i>
                       </button>
                     </>
-                  )}
                 </td>
               </tr>
             ))}

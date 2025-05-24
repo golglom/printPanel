@@ -11,8 +11,6 @@ function Clients() {
 
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const userRole = localStorage.getItem('role');
-  const isReadBy = userRole !== 'admin' && userRole !== 'manager';
 
 
   useEffect(() => {
@@ -66,8 +64,6 @@ function Clients() {
   return (
     <div>
       <h2 className="text-light mb-4">Clients</h2>
-
-      {(userRole === 'admin' || userRole === 'manager') && (
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="row g-3">
           {['name', 'email', 'phone', 'address'].map((field, i) => (
@@ -85,13 +81,12 @@ function Clients() {
             </div>
           ))}
           <div className="col-12 col-md-3">
-            <button type="submit" className="btn btn-success w-100" disabled={isReadBy}>
+            <button type="submit" className="btn btn-success w-100" >
               {editId ? 'Modifier' : 'Ajouter'}
             </button>
           </div>
         </div>
       </form>
-      )}
 
       <div className="table-responsive">
         <table className="table table-dark table-bordered">
@@ -114,7 +109,6 @@ function Clients() {
                 <td>{cli.address}</td>
                 <td>{cli.lastUpdated ? new Date(cli.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                  {!isReadBy && (
                     <>
                       <button onClick={() => handleEdit(cli)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
@@ -123,7 +117,6 @@ function Clients() {
                         <i className="bi bi-trash"></i>
                       </button>
                     </>
-                  )}
                 </td>
               </tr>
             ))}
