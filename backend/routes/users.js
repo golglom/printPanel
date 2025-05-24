@@ -6,7 +6,7 @@ import { getUsers, addUser, updateUser, deleteUser } from '../controllers/user.c
 const userRouter = express.Router();
 
 // Get all users
-userRouter.get('/', protect, requireRole(['admin', 'manager']), getUsers);
+userRouter.get('/', protect, requireRole(['admin', 'manager', 'user']), getUsers);
 
 // Add a new user
 userRouter.post('/', protect, requireRole(['admin', 'manager']), addUser);
