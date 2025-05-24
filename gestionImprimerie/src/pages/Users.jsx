@@ -11,8 +11,7 @@ function Users() {
   const token = localStorage.getItem('token');
   const userRole = localStorage.getItem('role');
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const isReadBy = userRole !== 'admin' && userRole !== 'manager';
-
+  
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -162,7 +161,7 @@ function Users() {
               </td>
               <td>{user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Jamais'}</td>
               <td>
-              {!isReadBy && (
+              {userRole === 'admin' && (
                     <>
                       <button onClick={() => handleEdit(user)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
