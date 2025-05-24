@@ -16,7 +16,7 @@ const app = express();
 
 app.use(cors({
 
-  origin: 'print-panel-qkzu.vercel.app' ,
+  origin: 'https://printipro.vercel.app/' ,
   credentials: true
 }
 ));
