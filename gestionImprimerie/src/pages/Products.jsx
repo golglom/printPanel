@@ -112,14 +112,12 @@ function Products() {
                 <td>{prod.category}</td>
                 <td>{prod.lastUpdated ? new Date(prod.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                    <>
                       <button onClick={() => handleEdit(prod)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
                       </button>
                       <button onClick={() => handleDelete(prod._id)} className="btn btn-danger btn-sm">
                         <i className="bi bi-trash"></i>
                       </button>
-                    </>
                 </td>
               </tr>
             ))}

@@ -64,6 +64,7 @@ function Clients() {
   return (
     <div>
       <h2 className="text-light mb-4">Clients</h2>
+
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="row g-3">
           {['name', 'email', 'phone', 'address'].map((field, i) => (
@@ -109,14 +110,12 @@ function Clients() {
                 <td>{cli.address}</td>
                 <td>{cli.lastUpdated ? new Date(cli.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                    <>
                       <button onClick={() => handleEdit(cli)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
                       </button>
                       <button onClick={() => handleDelete(cli._id)} className="btn btn-danger btn-sm">
                         <i className="bi bi-trash"></i>
                       </button>
-                    </>
                 </td>
               </tr>
             ))}

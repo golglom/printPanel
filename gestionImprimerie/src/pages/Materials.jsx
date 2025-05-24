@@ -109,14 +109,12 @@ function Materials() {
                 <td>{mat.cost} FCFA</td>
                 <td>{mat.lastUpdated ? new Date(mat.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                    <>
                       <button onClick={() => handleEdit(mat)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
                       </button>
                       <button onClick={() => handleDelete(mat._id)} className="btn btn-danger btn-sm">
                         <i className="bi bi-trash"></i>
                       </button>
-                    </>
                 </td>
               </tr>
             ))}
