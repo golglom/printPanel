@@ -69,7 +69,6 @@ function Products() {
     <div>
       <h2 className="text-light mb-4">Produits finis</h2>
 
-      {(userRole === 'admin' || userRole === 'manager') && (
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="row g-3">
           {['name', 'quantity', 'price', 'category'].map((field, i) => (
@@ -82,18 +81,16 @@ function Products() {
                 value={formData[field]}
                 onChange={handleChange}
                 required
-                disabled={isReadBy}
               />
             </div>
           ))}
           <div className="col-12 col-md-3">
-            <button type="submit" className="btn btn-success w-100" disabled={isReadBy}>
+            <button type="submit" className="btn btn-success w-100" >
               {editId ? 'Modifier' : 'Ajouter'}
             </button>
           </div>
         </div>
       </form>
-      )}
 
       <div className="table-responsive">
         <table className="table table-dark table-bordered">
