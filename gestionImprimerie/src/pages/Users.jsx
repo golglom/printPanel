@@ -129,7 +129,7 @@ function Users() {
               </select>
             </div>
             <div className="col-md-1 d-flex gap-1">
-              <button type="submit" className="btn btn-success w-100">
+              <button type="submit" className="btn btn-success w-100" >
                 {editMode ? 'Modifier' : 'Ajouter'}
               </button>
               {editMode && (
