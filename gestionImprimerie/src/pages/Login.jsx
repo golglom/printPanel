@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate ,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,8 +9,8 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
-localStorage.setItem('token', data.token);
-localStorage.setItem('role', data.user.role);
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('role', data.user.role);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -64,14 +64,14 @@ localStorage.setItem('role', data.user.role);
           </div>
           <button type="submit" className="btn btn-primary w-100 mt-2">Se connecter</button>
         </form>
-          <div className="mt-3 text-center">
-            <span className="text-secondary" style={{ fontSize: '0.9rem' }}>
-               Vous n'avez pas de compte ?{' '}
-               <Link to="/register" className="text-primary fw-bold text-decoration-none">
-                 S'inscrire
-               </Link>
-            </span>
-          </div>
+        <div className="mt-3 text-center">
+          <span className="text-secondary" style={{ fontSize: '0.9rem' }}>
+            Vous n'avez pas de compte ?{' '}
+            <Link to="/register" className="text-primary fw-bold text-decoration-none">
+              S'inscrire
+            </Link>
+          </span>
+        </div>
         <div className="mt-3 text-center text-secondary" style={{ fontSize: '0.9rem' }}>
           © {new Date().getFullYear()} Printing Manager
         </div>
