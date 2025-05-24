@@ -84,7 +84,7 @@ function Users() {
 
       <h2 className="text-light mb-4">Utilisateurs</h2>
 
-      {(userRole === 'admin' || userRole === 'manager') && (
+      {/* {(userRole === 'admin' || userRole === 'manager') && ( */}
         <form onSubmit={handleSubmit} className="mb-4">
           <div className="row g-3">
             <div className="col-md-3">
@@ -137,7 +137,7 @@ function Users() {
             </div>
           </div>
         </form>
-      )}
+      {/* )} */}
 
       <table className="table table-dark table-bordered align-middle">
         <thead>
@@ -161,7 +161,7 @@ function Users() {
               </td>
               <td>{user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Jamais'}</td>
               <td>
-              {userRole === 'admin' && (
+              {/* {userRole === 'admin' && ( */}
                     <>
                       <button onClick={() => handleEdit(user)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
@@ -170,7 +170,7 @@ function Users() {
                         <i className="bi bi-trash"></i>
                       </button>
                     </>
-                  )}
+                  {/* )} */}
               </td>
             </tr>
           ))}
