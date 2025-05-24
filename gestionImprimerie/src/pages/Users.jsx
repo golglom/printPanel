@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import API from '../api/api';
 
 function Users() {
@@ -8,6 +9,7 @@ function Users() {
   const [editUserId, setEditUserId] = useState(null);
 
   const token = localStorage.getItem('token');
+  const userRole = localStorage.getItem('role');
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
   useEffect(() => {
@@ -20,6 +22,7 @@ function Users() {
       setUsers(res.data);
     } catch (err) {
       console.error(err);
+      toast.error("Erreur lors du chargement des utilisateurs.");
     }
   };
 
@@ -32,13 +35,16 @@ function Users() {
     try {
       if (editMode) {
         await API.put(`/api/users/${editUserId}`, formData, config);
+        toast.success("Utilisateur modifié avec succès.");
       } else {
         await API.post('/api/users', formData, config);
+        toast.success("Nouvel utilisateur ajouté.");
       }
       resetForm();
       fetchUsers();
     } catch (err) {
       console.error(err);
+      toast.error("Erreur lors de l’enregistrement.");
     }
   };
 
@@ -46,7 +52,7 @@ function Users() {
     setFormData({
       username: user.username,
       email: user.email,
-      password: '', // Vide pour des raisons de sécurité
+      password: '',
       role: user.role
     });
     setEditMode(true);
@@ -57,9 +63,11 @@ function Users() {
     if (window.confirm("Confirmer la suppression de cet utilisateur ?")) {
       try {
         await API.delete(`/api/users/${id}`, config);
+        toast.success("Utilisateur supprimé.");
         fetchUsers();
       } catch (err) {
         console.error(err);
+        toast.error("Erreur lors de la suppression.");
       }
     }
   };
@@ -72,60 +80,64 @@ function Users() {
 
   return (
     <div>
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+
       <h2 className="text-light mb-4">Utilisateurs</h2>
 
-      <form onSubmit={handleSubmit} className="mb-4">
-        <div className="row g-3">
-          <div className="col-md-3">
-            <input
-              type="text"
-              name="username"
-              className="form-control"
-              placeholder="Nom d'utilisateur"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
+      {(userRole === 'admin' || userRole === 'manager') && (
+        <form onSubmit={handleSubmit} className="mb-4">
+          <div className="row g-3">
+            <div className="col-md-3">
+              <input
+                type="text"
+                name="username"
+                className="form-control"
+                placeholder="Nom d'utilisateur"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="col-md-3">
+              <input
+                type="email"
+                name="email"
+                className="form-control"
+                placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="col-md-3">
+              <input
+                type="password"
+                name="password"
+                className="form-control"
+                placeholder={editMode ? "Laisser vide si inchangé" : "Mot de passe"}
+                value={formData.password}
+                onChange={handleChange}
+                required={!editMode}
+              />
+            </div>
+            <div className="col-md-2">
+              <select name="role" className="form-select" value={formData.role} onChange={handleChange}>
+                <option value="admin">Admin</option>
+                <option value="manager">Manager</option>
+                <option value="user">Utilisateur</option>
+              </select>
+            </div>
+            <div className="col-md-1 d-flex gap-1">
+              <button type="submit" className="btn btn-success w-100">
+                {editMode ? 'Modifier' : 'Ajouter'}
+              </button>
+              {editMode && (
+                <button type="button" className="btn btn-secondary" onClick={resetForm}>Annuler</button>
+              )}
+            </div>
           </div>
-          <div className="col-md-3">
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="col-md-3">
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder={editMode ? "Laisser vide si inchangé" : "Mot de passe"}
-              value={formData.password}
-              onChange={handleChange}
-              required={!editMode}
-            />
-          </div>
-          <div className="col-md-2">
-            <select name="role" className="form-select" value={formData.role} onChange={handleChange}>
-              <option value="admin">Admin</option>
-              <option value="manager">Manager</option>
-              <option value="user">Utilisateur</option>
-            </select>
-          </div>
-          <div className="col-md-1 d-flex gap-1">
-            <button type="submit" className="btn btn-success w-100">
-              {editMode ? 'Modifier' : 'Ajouter'}
-            </button>
-            {editMode && (
-              <button type="button" className="btn btn-secondary" onClick={resetForm}>Annuler</button>
-            )}
-          </div>
-        </div>
-      </form>
+        </form>
+      )}
 
       <table className="table table-dark table-bordered align-middle">
         <thead>
@@ -142,15 +154,23 @@ function Users() {
             <tr key={user._id}>
               <td>{user.username}</td>
               <td>{user.email}</td>
-              <td>{user.role}</td>
+              <td>
+                <span className={`badge bg-${user.role === 'admin' ? 'danger' : user.role === 'manager' ? 'primary' : 'secondary'}`}>
+                  {user.role}
+                </span>
+              </td>
               <td>{user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Jamais'}</td>
               <td>
-                <button onClick={() => handleEdit(user)} className="btn btn-warning btn-sm me-2">
-                  <i className="bi bi-pencil"></i>
-                </button>
-                <button onClick={() => handleDelete(user._id)} className="btn btn-danger btn-sm">
-                  <i className="bi bi-trash"></i>
-                </button>
+                {(userRole === 'admin' || userRole === 'manager') && (
+                  <button onClick={() => handleEdit(user)} className="btn btn-warning btn-sm me-2">
+                    <i className="bi bi-pencil"></i>
+                  </button>
+                )}
+                {userRole === 'admin' && (
+                  <button onClick={() => handleDelete(user._id)} className="btn btn-danger btn-sm">
+                    <i className="bi bi-trash"></i>
+                  </button>
+                )}
               </td>
             </tr>
           ))}

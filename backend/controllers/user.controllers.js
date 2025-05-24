@@ -32,10 +32,11 @@ export const addUser = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const updatedData = { ...req.body };
+    const { password, ...rest } = req.body;
+    const updatedData = { ...rest };
 
-    if (updatedData.password) {
-      updatedData.password = await bcrypt.hash(updatedData.password, 10);
+    if (password && password.trim() !== '') {
+      updatedData.password = await bcrypt.hash(password, 10);
     }
 
     const user = await User.findByIdAndUpdate(req.params.id, updatedData, { new: true });
@@ -45,6 +46,7 @@ export const updateUser = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 export const deleteUser = async (req, res) => {
   try {

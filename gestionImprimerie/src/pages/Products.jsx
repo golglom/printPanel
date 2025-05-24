@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import API from '../api/api';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -19,7 +20,7 @@ function Products() {
       const res = await API.get('/api/products', config);
       setProducts(res.data);
     } catch (err) {
-      console.error(err);
+      toast.error('Erreur lors du chargement des produits.');
     }
   };
 
@@ -28,14 +29,16 @@ function Products() {
     try {
       if (editId) {
         await API.put(`/api/products/${editId}`, formData, config);
+        toast.success('Produit modifié avec succès');
       } else {
         await API.post('/api/products', formData, config);
+        toast.success('Produit ajouté avec succès');
       }
       setFormData({ name: '', quantity: '', price: '', category: '' });
       setEditId(null);
       fetchProducts();
     } catch (err) {
-      console.error(err);
+      toast.error('Erreur lors de l\'enregistrement.');
     }
   };
 
@@ -52,9 +55,10 @@ function Products() {
     if (window.confirm('Confirmer la suppression ?')) {
       try {
         await API.delete(`/api/products/${id}`, config);
+        toast.success('Produit supprimé.');
         fetchProducts();
       } catch (err) {
-        console.error(err);
+        toast.error('Erreur lors de la suppression.');
       }
     }
   };
@@ -62,7 +66,6 @@ function Products() {
   return (
     <div>
       <h2 className="text-light mb-4">Produits finis</h2>
-
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="row g-3">
           {['name', 'quantity', 'price', 'category'].map((field, i) => (
@@ -118,7 +121,6 @@ function Products() {
             ))}
           </tbody>
         </table>
-
       </div>
     </div>
   );
