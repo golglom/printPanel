@@ -77,7 +77,6 @@ function Clients() {
                 value={formData[field]}
                 onChange={(e) => setFormData({ ...formData, [field]: e.target.value })}
                 required
-                disabled={isReadBy}
               />
             </div>
           ))}
