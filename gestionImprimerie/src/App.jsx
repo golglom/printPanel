@@ -21,16 +21,13 @@ const PublicRoute = ({ children }) => {
   return !isAuthenticated ? children : <Navigate to="/dashboard" />;
 };
 
-const RequireRegistration = ({ children }) => {
-  const isRegistered = localStorage.getItem('isRegistered');
-  return isRegistered ? children : <Navigate to="/register" />;
-};
+
 
 function AppRoutes() {
   return (
     <Routes>
       <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-      <Route path="/login" element={<RequireRegistration><PublicRoute><Login /></PublicRoute></RequireRegistration>} />
+      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
 
       <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
         <Route index element={<Dashboard />} />
