@@ -9,6 +9,8 @@ function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
+localStorage.setItem('token', data.token);
+localStorage.setItem('role', data.user.role);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });

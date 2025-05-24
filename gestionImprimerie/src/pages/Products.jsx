@@ -10,6 +10,8 @@ function Products() {
 
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
+  const userRole = localStorage.getItem('role');
+  const isReadBy = userRole !== 'admin' && userRole !== 'manager';
 
   useEffect(() => {
     fetchProducts();
@@ -66,6 +68,8 @@ function Products() {
   return (
     <div>
       <h2 className="text-light mb-4">Produits finis</h2>
+
+      {(userRole === 'admin' || userRole === 'manager') && (
       <form onSubmit={handleSubmit} className="mb-4">
         <div className="row g-3">
           {['name', 'quantity', 'price', 'category'].map((field, i) => (
@@ -88,6 +92,7 @@ function Products() {
           </div>
         </div>
       </form>
+      )}
 
       <div className="table-responsive">
         <table className="table table-dark table-bordered">
@@ -110,12 +115,16 @@ function Products() {
                 <td>{prod.category}</td>
                 <td>{prod.lastUpdated ? new Date(prod.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                  <button onClick={() => handleEdit(prod)} className="btn btn-warning btn-sm me-2">
-                    <i className="bi bi-pencil"></i>
-                  </button>
-                  <button onClick={() => handleDelete(prod._id)} className="btn btn-danger btn-sm">
-                    <i className="bi bi-trash"></i>
-                  </button>
+                {!isReadBy && (
+                    <>
+                      <button onClick={() => handleEdit(prod)} className="btn btn-warning btn-sm me-2">
+                        <i className="bi bi-pencil"></i>
+                      </button>
+                      <button onClick={() => handleDelete(prod._id)} className="btn btn-danger btn-sm">
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
