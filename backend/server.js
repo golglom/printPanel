@@ -13,7 +13,6 @@ connectDB();
 
 const app = express();
 
-
 const allowedOrigins = [
   'http://localhost:5173',
   'https://printipro.vercel.app',
@@ -30,17 +29,7 @@ app.use(cors({
   credentials: true,
 }));
 
-
 app.use(express.json());
-
-
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Serveur démarré sur le port ${PORT}`);
-});
-
-
 
 // Routes
 app.use('/api/auth', authRouter);
@@ -48,3 +37,12 @@ app.use('/api/materials', materialRouter);
 app.use('/api/products', productRouter);
 app.use('/api/clients', clientRouter);
 app.use('/api/users', userRouter);
+
+app.get('/', (req, res) => {
+  res.send('API PrintPanel en ligne ✅');
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`✅ Serveur démarré sur le port ${PORT}`);
+});
