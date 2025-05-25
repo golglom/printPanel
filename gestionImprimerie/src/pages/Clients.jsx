@@ -8,6 +8,8 @@ function Clients() {
   const [clients, setClients] = useState([]);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', address: '' });
   const [editId, setEditId] = useState(null);
+    const [editMode, setEditMode] = useState(false);
+  
 
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -61,6 +63,13 @@ function Clients() {
     }
   };
 
+  const resetForm = () => {
+    setFormData({ name: '', email: '', phone: '', address: '' });
+    setEditMode(false);
+    setEditId(null);
+  };
+
+
   return (
     <div>
       <h2 className="text-light mb-4">Clients</h2>
@@ -84,6 +93,9 @@ function Clients() {
             <button type="submit" className="btn btn-success w-100" >
               {editId ? 'Modifier' : 'Ajouter'}
             </button>
+            {editMode && (
+                <button type="button" className="btn btn-secondary" onClick={resetForm}>Annuler</button>
+              )}
           </div>
         </div>
       </form>

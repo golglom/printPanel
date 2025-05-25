@@ -7,6 +7,8 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({ name: '', quantity: '', price: '', category: '' });
   const [editId, setEditId] = useState(null);
+  const [editMode, setEditMode] = useState(false);    
+  
 
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
@@ -64,6 +66,12 @@ function Products() {
     }
   };
 
+  const resetForm = () => {
+    setFormData({ name: '', quantity: '', price: '', category: '' });
+    setEditMode(false);
+    setEditId(null);
+  };
+
   return (
     <div>
       <h2 className="text-light mb-4">Produits finis</h2>
@@ -87,6 +95,9 @@ function Products() {
             <button type="submit" className="btn btn-success w-100" >
               {editId ? 'Modifier' : 'Ajouter'}
             </button>
+              {editMode && (
+                <button type="button" className="btn btn-secondary" onClick={resetForm}>Annuler</button>
+              )}
           </div>
         </div>
       </form>
