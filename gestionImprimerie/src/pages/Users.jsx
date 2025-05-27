@@ -34,7 +34,18 @@ function Users() {
     e.preventDefault();
     try {
       if (editMode) {
-        await API.put(`/api/users/${editUserId}`, formData, config);
+        const updateData = {
+          username: formData.username,
+          email: formData.email,
+          role: formData.role,
+        };
+        
+        if (formData.password.trim() !== '') {
+          updateData.password = formData.password;
+        }
+        
+        await API.put(`/api/users/${editUserId}`, updateData, config);
+        
         toast.success("Utilisateur modifié avec succès.");
       } else {
         await API.post('/api/users', formData, config);
