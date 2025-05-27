@@ -41,6 +41,7 @@ export const updateUser = async (req, res) => {
 
     const user = await User.findByIdAndUpdate(req.params.id, updatedData, { new: true });
     res.json(user);
+    console.log(req.params.id);
 
   } catch (error) {
     res.status(400).json({ message: error.message });
