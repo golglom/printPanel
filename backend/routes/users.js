@@ -12,7 +12,7 @@ userRouter.get('/', protect, getUsers);
 userRouter.post('/', protect, requireRole(['admin', 'manager']), addUser);
 
 // Update a user
-userRouter.put('/:id', protect, requireRole(['admin', 'manager']), updateUser);
+userRouter.put('/:id', requireRole(['admin', 'manager']), updateUser);
 
 // Delete a user
 userRouter.delete('/:id', protect, requireRole(['admin']), deleteUser);
