@@ -161,7 +161,7 @@ function Users() {
               </td>
               <td>{user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Jamais'}</td>
               <td>
-              {/* {userRole === 'admin' && ( */}
+                {userRole === 'admin' && ( 
                     <>
                       <button onClick={() => handleEdit(user)} className="btn btn-warning btn-sm me-2">
                         <i className="bi bi-pencil"></i>
@@ -170,7 +170,7 @@ function Users() {
                         <i className="bi bi-trash"></i>
                       </button>
                     </>
-                  {/* )} */}
+                )}
               </td>
             </tr>
           ))}
