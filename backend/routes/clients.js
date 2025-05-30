@@ -12,7 +12,7 @@ clientRouter.get('/', protect, getClients);
 clientRouter.post('/', protect,addClient);
 
 // Update
-clientRouter.patch('/:id', protect,updateClient);
+clientRouter.put('/:id', protect,updateClient);
 
 // Add 
 clientRouter.post('/:id/orders', protect, getClientOrders);

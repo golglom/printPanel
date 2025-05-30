@@ -12,7 +12,7 @@ materialRouter.get('/', protect,getMaterials);
 materialRouter.post('/', protect,addMaterial);
 
 // Update 
-materialRouter.patch('/:id', protect,updateMaterial);
+materialRouter.put('/:id', protect,updateMaterial);
 
 // Delete
 materialRouter.delete('/:id', protect,deleteMaterial);

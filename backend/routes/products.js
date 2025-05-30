@@ -12,7 +12,7 @@ productRouter.get('/', protect,getProducts);
 productRouter.post('/', protect, addProduct);
 
 // Update
-productRouter.patch('/:id', protect, updateProduct);
+productRouter.put('/:id', protect, updateProduct);
 
 // Delete
 productRouter.delete('/:id', protect, deleteProduct);
