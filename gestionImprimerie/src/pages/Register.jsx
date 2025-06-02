@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Register() {
   const [form, setForm] = useState({ username: '', email: '', password: '' });
+  const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ function Register() {
         setError(err.response?.data?.message || 'Erreur inattendue');
       }
     }
+    setSuccessMessage('Inscription réussie !');
   };
 
   return (
@@ -77,6 +79,8 @@ function Register() {
           </div>
           <button type="submit" className="btn btn-primary w-100 mt-2">S'inscrire</button>
         </form>
+        
+        {successMessage && <p>{successMessage}</p>}
 
         <div className="mt-3 text-center">
           <span className="text-secondary" style={{ fontSize: '0.9rem' }}>

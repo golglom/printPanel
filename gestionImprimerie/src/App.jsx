@@ -3,6 +3,7 @@ import { Suspense, lazy } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import LoadingPage from './components/LoadingPage';
 
 // Lazy loaded pages
 const Login = lazy(() => import('./pages/Login'));
@@ -27,7 +28,7 @@ const PublicRoute = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <Suspense fallback={<div className="text-white p-4">Chargement en cours...</div>}>
+    <Suspense fallback={<LoadingPage />}> {/* ✅ remplace le fallback simple */}
       <Routes>
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
