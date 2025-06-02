@@ -3,7 +3,6 @@ import { Suspense, lazy } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import LoadingPage from './components/LoadingPage';
 
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
@@ -27,7 +26,7 @@ const PublicRoute = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <Suspense fallback={<LoadingPage />}>
+    <Suspense>
       <Routes>
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
