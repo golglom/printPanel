@@ -5,7 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoadingPage from './components/LoadingPage';
 
-// Lazy loaded pages
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -28,7 +27,7 @@ const PublicRoute = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <Suspense fallback={<LoadingPage />}> {/* ✅ remplace le fallback simple */}
+    <Suspense fallback={<LoadingPage />}>
       <Routes>
         <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
         <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
