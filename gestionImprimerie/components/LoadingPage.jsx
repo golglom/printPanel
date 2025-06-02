@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Printer } from 'react-bootstrap-icons';
-
 import './styles/LoadingPage.css';
 
 function LoadingPage() {
