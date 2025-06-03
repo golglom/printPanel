@@ -24,7 +24,10 @@ export const addMaterial =  async (req, res) => {
 
 export const updateMaterial =  async (req, res) => {
   try {
-    const material = await Material.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const material = await Material.findByIdAndUpdate(req.params.id, req.body,{
+      new: true,
+      runValidators: true,
+      context: 'query' });
     res.json(material);
   } catch (error) {
     res.status(400).json({ message: error.message });

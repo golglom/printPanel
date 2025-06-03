@@ -12,7 +12,7 @@ export const getClients = async (req, res) => {
 }
 
 
-export const addClient =  async (req, res) => {
+export const addClient = async (req, res) => {
 
   const client = new Client(req.body);
   try {
@@ -25,10 +25,14 @@ export const addClient =  async (req, res) => {
 }
 
 
-export const updateClient =  async (req, res) => {
+export const updateClient = async (req, res) => {
 
   try {
-    const client = await Client.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const client = await Client.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+      context: 'query' }
+    );
     res.json(client);
   } catch (error) {
     res.status(400).json({ message: error.message });

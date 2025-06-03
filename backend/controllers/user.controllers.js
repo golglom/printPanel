@@ -39,7 +39,10 @@ export const updateUser = async (req, res) => {
       updatedData.password = await bcrypt.hash(password, 10);
     }
 
-    const user = await User.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+    const user = await User.findByIdAndUpdate(req.params.id, updatedData, {
+      new: true,
+      runValidators: true,
+      context: 'query' });
     res.json(user);
     console.log(req.params.id);
 

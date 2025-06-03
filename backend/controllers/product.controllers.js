@@ -23,7 +23,10 @@ export const addProduct =  async (req, res) => {
 
 export const updateProduct =  async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+      context: 'query' });
     res.json(product);
   } catch (error) {
     res.status(400).json({ message: error.message });
