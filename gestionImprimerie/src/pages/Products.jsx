@@ -23,6 +23,7 @@ function Products() {
       const res = await API.get('/api/products', config);
       setProducts(res.data);
     } catch (err) {
+      console.log(err)
       toast.error('Erreur lors du chargement des produits.');
     }
   };
@@ -41,6 +42,7 @@ function Products() {
       setEditId(null);
       fetchProducts();
     } catch (err) {
+      console.log(err)
       toast.error('Erreur lors de l\'enregistrement.');
     }
   };
@@ -61,6 +63,7 @@ function Products() {
         toast.success('Produit supprimé.');
         fetchProducts();
       } catch (err) {
+        console.log(err)
         toast.error('Erreur lors de la suppression.');
       }
     }
