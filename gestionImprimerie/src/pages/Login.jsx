@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login() {
   const [form, setForm] = useState({ username: '', password: '' });
+  
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -26,6 +28,8 @@ function Login() {
       console.error(err);
       setError('Identifiants invalides. Veuillez réessayer.');
     }
+
+    toast.success('Connexion réussie');    
   };
 
   return (
@@ -63,6 +67,7 @@ function Login() {
           </div>
           <button type="submit" className="btn btn-primary w-100 mt-2">Se connecter</button>
         </form>
+
         <div className="mt-3 text-center">
           <span className="text-secondary" style={{ fontSize: '0.9rem' }}>
             Vous n'avez pas de compte ?{' '}
