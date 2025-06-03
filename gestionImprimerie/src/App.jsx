@@ -3,7 +3,7 @@ import { Suspense, lazy } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Loading from './pages/Loading';
+import Loading from './pages/Loading'; 
 
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
@@ -25,26 +25,33 @@ const PublicRoute = ({ children }) => {
   return !isAuthenticated ? children : <Navigate to="/dashboard" />;
 };
 
-function AppRoutes() {
+function AppWithLoading() {
+  const { loading } = useAuth();
   return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
-        <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-
-        <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
-          <Route index element={<Dashboard />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="materials" element={<Materials />} />
-          <Route path="products" element={<Products />} />
-          <Route path="clients" element={<Clients />} />
-          <Route path="users" element={<Users />} />
-          <Route path="inventory" element={<Inventory />} />
-        </Route>
-
-        <Route path="*" element={<Navigate to="/login" />} />
-      </Routes>
-    </Suspense>
+    <>
+      {loading && (
+        <div className="loading-overlay">
+          <Loading />
+        </div>
+      )}
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path="/register" element={<PublicRoute><Register /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="materials" element={<Materials />} />
+            <Route path="products" element={<Products />} />
+            <Route path="clients" element={<Clients />} />
+            <Route path="users" element={<Users />} />
+            <Route path="inventory" element={<Inventory />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </Suspense>
+      <ToastContainer />
+    </>
   );
 }
 
@@ -52,8 +59,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <AppRoutes />
-        <ToastContainer />
+        <AppWithLoading />
       </Router>
     </AuthProvider>
   );

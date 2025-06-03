@@ -5,25 +5,50 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     setIsAuthenticated(!!token);
   }, [token]);
 
-  const login = (newToken) => {
-    localStorage.setItem('token', newToken);
-    setToken(newToken);
-    setIsAuthenticated(true);
+  const login = async (newToken) => {
+    setLoading(true); 
+    try {
+      await new Promise((res) => setTimeout(res, 1000));
+      localStorage.setItem('token', newToken);
+      setToken(newToken);
+      setIsAuthenticated(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const logout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-    setIsAuthenticated(false);
+  const logout = async () => {
+    setLoading(true);
+    try {
+      await new Promise((res) => setTimeout(res, 1000));
+      localStorage.removeItem('token');
+      setToken(null);
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const register = async (newToken) => {
+    setLoading(true);
+    try {
+      await new Promise((res) => setTimeout(res, 1000));
+      localStorage.setItem('token', newToken);
+      setToken(newToken);
+      setIsAuthenticated(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ token, isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ token, isAuthenticated, login, logout, register, loading }}>
       {children}
     </AuthContext.Provider>
   );
