@@ -1,6 +1,5 @@
 import express from 'express';
 import protect from '../middleware/protect.js';
-import { requireRole } from '../middleware/roleMiddleware.js';
 import { getUsers, addUser, updateUser, deleteUser } from '../controllers/user.controllers.js';
 
 const userRouter = express.Router();
@@ -9,12 +8,12 @@ const userRouter = express.Router();
 userRouter.get('/', protect, getUsers);
 
 // Add a new user
-userRouter.post('/', protect, requireRole(['admin', 'manager']), addUser);
+userRouter.post('/', protect, addUser);
 
 // Update a user
-userRouter.put('/:id', requireRole(['admin', 'manager']), updateUser);
+userRouter.put('/:id', updateUser);
 
 // Delete a user
-userRouter.delete('/:id', protect, requireRole(['admin']), deleteUser);
+userRouter.delete('/:id', deleteUser);
 
 export default userRouter;
