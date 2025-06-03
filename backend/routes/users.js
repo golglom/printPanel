@@ -11,9 +11,9 @@ userRouter.get('/', protect, getUsers);
 userRouter.post('/', protect, addUser);
 
 // Update a user
-userRouter.put('/:id', updateUser);
+userRouter.put('/:id', protect, updateUser);
 
 // Delete a user
-userRouter.delete('/:id', deleteUser);
+userRouter.delete('/:id', protect, deleteUser);
 
 export default userRouter;
