@@ -29,6 +29,12 @@ export const updateProduct =  async (req, res) => {
       context: 'query' });
     res.json(product);
   } catch (error) {
+    
+    if (error.code === 11000) {
+      const champ = Object.keys(error.keyPattern)[0];
+      return res.status(400).json({ message: `${champ} déjà utilisé.` });
+    }
+    
     res.status(400).json({ message: error.message });
   }
 }

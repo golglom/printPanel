@@ -30,6 +30,12 @@ export const updateMaterial =  async (req, res) => {
       context: 'query' });
     res.json(material);
   } catch (error) {
+    
+    if (error.code === 11000) {
+      const champ = Object.keys(error.keyPattern)[0];
+      return res.status(400).json({ message: `${champ} déjà utilisé.` });
+    }
+    
     res.status(400).json({ message: error.message });
   }
 }
