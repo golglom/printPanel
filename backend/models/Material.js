@@ -10,11 +10,11 @@ const materialSchema = new mongoose.Schema({
     required: true,
     min: 0,
   },
-  unit: {
+  supplier: {
     type: String,
     required: true,
   },
-  reorderPoint: {
+  cost: {
     type: Number,
     required: true,
   },

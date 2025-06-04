@@ -24,6 +24,7 @@ function Materials() {
       const res = await API.get('/api/materials', config);
       setMaterials(res.data);
     } catch (err) {
+      console.log(err)
       toast.error('Erreur lors du chargement des matériaux.');
     }
   };
@@ -42,6 +43,7 @@ function Materials() {
       setEditId(null);
       fetchMaterials();
     } catch (err) {
+      console.log(err)
       toast.error("Échec de l'enregistrement.");
     }
   };
@@ -58,6 +60,7 @@ function Materials() {
         toast.success('Matériau supprimé.');
         fetchMaterials();
       } catch (err) {
+        console.log(err)
         toast.error("Erreur lors de la suppression.");
       }
     }
