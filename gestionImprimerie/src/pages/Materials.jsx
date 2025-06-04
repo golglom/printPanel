@@ -9,11 +9,9 @@ function Materials() {
   const [formData, setFormData] = useState({ name: '', quantity: '', supplier: '', cost: '' });
   const [editId, setEditId] = useState(null);
   const [editMode, setEditMode] = useState(false);
-  
 
   const token = localStorage.getItem('token');
   const config = { headers: { Authorization: `Bearer ${token}` } };
-
 
   useEffect(() => {
     fetchMaterials();
@@ -24,43 +22,62 @@ function Materials() {
       const res = await API.get('/api/materials', config);
       setMaterials(res.data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       toast.error('Erreur lors du chargement des matériaux.');
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Validation simple
+    if (!formData.name || !formData.quantity || !formData.supplier || !formData.cost) {
+      toast.error('Tous les champs sont obligatoires.');
+      return;
+    }
+
+    const payload = {
+      name: formData.name,
+      quantity: Number(formData.quantity),
+      supplier: formData.supplier,
+      cost: Number(formData.cost),
+    };
+
     try {
       if (editId) {
-        await API.put(`/api/materials/${editId}`, formData, config);
+        await API.put(`/api/materials/${editId}`, payload, config);
         toast.success('Matériau modifié avec succès.');
       } else {
-        await API.post('/api/materials', formData, config);
+        await API.post('/api/materials', payload, config);
         toast.success('Matériau ajouté avec succès.');
       }
-      setFormData({ name: '', quantity: '', supplier: '', cost: '' });
-      setEditId(null);
+      resetForm();
       fetchMaterials();
     } catch (err) {
-      console.log(err)
+      console.log(err);
       toast.error("Échec de l'enregistrement.");
     }
   };
 
   const handleEdit = (mat) => {
-    setFormData({ name: mat.name, quantity: mat.quantity, supplier: mat.supplier, cost: mat.cost });
+    setFormData({
+      name: mat.name,
+      quantity: mat.quantity,
+      supplier: mat.supplier,
+      cost: mat.cost
+    });
     setEditId(mat._id);
+    setEditMode(true);
   };
 
   const handleDelete = async (id) => {
     if (window.confirm('Confirmer la suppression ?')) {
       try {
         await API.delete(`/api/materials/${id}`, config);
-        toast.success('Matériau supprimé.');
+        toast.success('Matériel supprimé.');
         fetchMaterials();
       } catch (err) {
-        console.log(err)
+        console.log(err);
         toast.error("Erreur lors de la suppression.");
       }
     }
@@ -91,13 +108,15 @@ function Materials() {
               />
             </div>
           ))}
-          <div className="col-12 col-md-3">
+          <div className="col-12 col-md-3 d-flex gap-2">
             <button type="submit" className="btn btn-success w-100">
-              {editId ? 'Modifier' : 'Ajouter'}
+              {editMode ? 'Modifier' : 'Ajouter'}
             </button>
-              {editMode && (
-                <button type="button" className="btn btn-secondary" onClick={resetForm}>Annuler</button>
-              )}
+            {editMode && (
+              <button type="button" className="btn btn-secondary w-100" onClick={resetForm}>
+                Annuler
+              </button>
+            )}
           </div>
         </div>
       </form>
@@ -123,12 +142,12 @@ function Materials() {
                 <td>{mat.cost} FCFA</td>
                 <td>{mat.lastUpdated ? new Date(mat.lastUpdated).toLocaleDateString() : 'N/A'}</td>
                 <td>
-                      <button onClick={() => handleEdit(mat)} className="btn btn-warning btn-sm me-2">
-                        <i className="bi bi-pencil"></i>
-                      </button>
-                      <button onClick={() => handleDelete(mat._id)} className="btn btn-danger btn-sm">
-                        <i className="bi bi-trash"></i>
-                      </button>
+                  <button onClick={() => handleEdit(mat)} className="btn btn-warning btn-sm me-2">
+                    <i className="bi bi-pencil"></i>
+                  </button>
+                  <button onClick={() => handleDelete(mat._id)} className="btn btn-danger btn-sm">
+                    <i className="bi bi-trash"></i>
+                  </button>
                 </td>
               </tr>
             ))}
