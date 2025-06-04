@@ -25,9 +25,9 @@ function Login() {
       
       console.log('LOGIN RESPONSE:', response.data);
 
-      const {token, role}= response.data;
+      const {token, user}= response.data;
       login(token);
-      localStorage.setItem('role', role);
+      localStorage.setItem('role', user.role);
       console.log('ROLE from localStorage:', localStorage.getItem('role'));
       navigate('/dashboard');
 
