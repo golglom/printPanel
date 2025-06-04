@@ -9,7 +9,7 @@ const userRouter = express.Router();
 userRouter.get('/', protect, getUsers);
 
 // Add a new user
-userRouter.post('/', protect, authorizeRole('admin'), addUser);
+userRouter.post('/', protect, addUser);
 
 // Update a user
 userRouter.put('/:id', protect, authorizeRole('admin'), updateUser);

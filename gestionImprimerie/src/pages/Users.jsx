@@ -9,7 +9,7 @@ function Users() {
   const [editUserId, setEditUserId] = useState(null);
 
   const token = localStorage.getItem('token');
-  const role = localStorage.getItem('userRole');
+  const role = localStorage.getItem('role');
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
   useEffect(() => {

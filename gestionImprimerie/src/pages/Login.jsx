@@ -24,8 +24,10 @@ function Login() {
       const response = await axios.post('https://printpanel.onrender.com/api/auth/login', form);
       const {token, role}= response.data;
       login(token);
-      localStorage.setItem('userRole', role);
+      localStorage.setItem('role', role);
+      console.log('ROLE from localStorage:', localStorage.getItem('role'));
       navigate('/dashboard');
+
     } catch (err) {
       console.error(err);
       setError('Identifiants invalides. Veuillez réessayer.');

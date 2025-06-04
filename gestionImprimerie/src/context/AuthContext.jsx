@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setIsAuthenticated(!!token);
+    console.log('ROLE from localStorage:', localStorage.getItem('role'));
   }, [token]);
 
   const login = async (newToken) => {
@@ -28,7 +29,6 @@ export const AuthProvider = ({ children }) => {
     try {
       await new Promise((res) => setTimeout(res, 3000));
       localStorage.removeItem('token');
-      localStorage.removeItem('userRole');
       setToken(null);
       setIsAuthenticated(false);
     } finally {
