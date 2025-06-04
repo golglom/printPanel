@@ -51,7 +51,7 @@ function Layout() {
 
           <button 
             onClick={handleLogout} 
-            className="btn btn-sm btn-outline-danger w-100 d-lg-none mt-auto fixed-bottom">
+            className="btn btn-sm btn-outline-danger w-100 d-lg-none mt-auto pt-2">
             <i className="bi bi-box-arrow-right me-1"></i> Déconnexion
           </button>
         </aside>
