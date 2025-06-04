@@ -22,13 +22,10 @@ function Login() {
     setError('');
     try {
       const response = await axios.post('https://printpanel.onrender.com/api/auth/login', form);
-      
-      console.log('LOGIN RESPONSE:', response.data);
 
       const {token, user}= response.data;
       login(token);
       localStorage.setItem('role', user.role);
-      console.log('ROLE from localStorage:', localStorage.getItem('role'));
       navigate('/dashboard');
 
     } catch (err) {
