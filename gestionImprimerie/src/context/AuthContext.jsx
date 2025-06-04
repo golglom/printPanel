@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     setIsAuthenticated(!!token);
-    console.log('ROLE from localStorage:', localStorage.getItem('role'));
   }, [token]);
 
   const login = async (newToken) => {
