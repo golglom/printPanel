@@ -30,7 +30,7 @@ function Layout() {
         </button>
         <span className="navbar-brand h4 logo-glow">🖨️ PrintiPro</span>
 
-        <div className="ms-auto d-flex align-items-center gap-3">
+        <div className="ms-auto d-flex align-items-center gap-3 d-none d-lg-flex">
           <span className="text-light">👋 Bienvenue, Admin</span>
           <button onClick={handleLogout} className="btn btn-sm btn-outline-danger logout-hover">
             <i className="bi bi-box-arrow-right me-1"></i> Déconnexion
@@ -48,6 +48,12 @@ function Layout() {
             <li><NavLink to="/users" className="nav-link custom-link"><i className="bi bi-person-badge me-2"></i>Utilisateurs</NavLink></li>
             <li><NavLink to="/inventory" className="nav-link custom-link"><i className="bi bi-clipboard-data me-2"></i>Inventaire</NavLink></li>
           </ul>
+
+          <button 
+            onClick={handleLogout} 
+            className="btn btn-sm btn-outline-danger w-100 d-lg-none mt-auto">
+            <i className="bi bi-box-arrow-right me-1"></i> Déconnexion
+          </button>
         </aside>
 
         <main className="flex-grow-1 p-4 animated-main">
