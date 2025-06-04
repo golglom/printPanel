@@ -9,9 +9,9 @@ function Users() {
   const [editUserId, setEditUserId] = useState(null);
 
   const token = localStorage.getItem('token');
-  const userRole = localStorage.getItem('role');
+  const role = localStorage.getItem('userRole');
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -39,13 +39,13 @@ function Users() {
           email: formData.email,
           role: formData.role,
         };
-        
+
         if (formData.password.trim() !== '') {
           updateData.password = formData.password;
         }
-        
+
         await API.put(`/api/users/${editUserId}`, updateData, config);
-        
+
         toast.success("Utilisateur modifié avec succès.");
       } else {
         await API.post('/api/users', formData, config);
@@ -95,7 +95,7 @@ function Users() {
 
       <h2 className="text-light mb-4">Utilisateurs</h2>
 
-      {/* {(userRole === 'admin' || userRole === 'manager') && ( */}
+      {(role === 'admin') && (
         <form onSubmit={handleSubmit} className="mb-4">
           <div className="row g-3">
             <div className="col-md-3">
@@ -148,7 +148,7 @@ function Users() {
             </div>
           </div>
         </form>
-      {/* )} */}
+      )}
 
       <table className="table table-dark table-bordered align-middle">
         <thead>
@@ -172,14 +172,17 @@ function Users() {
               </td>
               <td>{user.lastLogin ? new Date(user.lastLogin).toLocaleDateString() : 'Jamais'}</td>
               <td>
-                    <>
-                      <button onClick={() => handleEdit(user)} className="btn btn-warning btn-sm me-2">
-                        <i className="bi bi-pencil"></i>
-                      </button>
-                      <button onClick={() => handleDelete(user._id)} className="btn btn-danger btn-sm">
-                        <i className="bi bi-trash"></i>
-                      </button>
-                    </>
+                {(role === 'admin') && (
+                  <>
+                    <button onClick={() => handleEdit(user)} className="btn btn-warning btn-sm me-2">
+                      <i className="bi bi-pencil"></i>
+                    </button>
+                    <button onClick={() => handleDelete(user._id)} className="btn btn-danger btn-sm">
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </>
+                )
+                }
               </td>
             </tr>
           ))}

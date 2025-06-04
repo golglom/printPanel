@@ -24,6 +24,7 @@ function Clients() {
       const res = await API.get('/api/clients', config);
       setClients(res.data);
     } catch (err) {
+      console.log(err)
       toast.error('Erreur lors du chargement des clients.');
     }
   };
@@ -42,6 +43,7 @@ function Clients() {
       setEditId(null);
       fetchClients();
     } catch (err) {
+      console.log(err)
       toast.error("Échec de l'enregistrement.");
     }
   };
@@ -58,6 +60,7 @@ function Clients() {
         toast.success('Client supprimé.');
         fetchClients();
       } catch (err) {
+        console.log(err)
         toast.error("Erreur lors de la suppression.");
       }
     }

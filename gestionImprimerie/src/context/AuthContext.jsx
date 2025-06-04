@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await new Promise((res) => setTimeout(res, 3000));
       localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
       setToken(null);
       setIsAuthenticated(false);
     } finally {
