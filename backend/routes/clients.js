@@ -1,6 +1,5 @@
 import express from 'express';
 import protect from '../middleware/protect.js';
-import { requireRole } from '../middleware/roleMiddleware.js';
 import {getClients , addClient , updateClient , getClientOrders , deleteClient} from '../controllers/client.controllers.js'
 
 const clientRouter = express.Router();
