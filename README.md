@@ -24,15 +24,15 @@
 
 - **React.js** – Bibliothèque JavaScript pour l'interface
 - **Vite** – Outil de build rapide
-- **Tailwind CSS** – Framework CSS utilitaire
+- **Bootstrap** - Responsive de l'App
 - **React Icons** – Icônes vectorielles
-- **Structure des fichiers** :
+- **Structure des fichiers frontend** :
   ```
-  /components     -> Composants réutilisables (Header, Sidebar, Cards, etc.)
+  
   /pages          -> Pages métiers (Dashboard, Matière, Produit, Client, etc.)
-  /behaviors      -> Logique métier centralisée (ajout, suppression, édition…)
-  /styles         -> Fichiers CSS (style global)
-  /assets         -> Logos et ressources visuelles
+  /styles         -> Fichiers CSS (style personnalisés du layout et loading spinner)
+  /api            -> Appel de l'api backend et authorization du token
+ 
   ```
 
 ---
@@ -41,7 +41,7 @@
 
 ```bash
 # 1. Cloner le dépôt
-git clone https://github.com/tonutilisateur/printipro.git
+git clone https://github.com/golglom/printipro.git
 cd printipro
 
 # 2. Installer les dépendances
@@ -50,15 +50,6 @@ npm install
 # 3. Lancer le projet en développement
 npm run dev
 ```
-
----
-
-## 🧩 Fonctionnalités à venir
-
-- 🔐 Authentification avancée par rôle (admin / opérateur)
-- 📦 Intégration backend avec Symfony 7
-- 🧾 Génération de factures PDF
-- 📤 Export des stocks en CSV/Excel
 
 ---
 
@@ -73,7 +64,7 @@ npm run dev
 ## 👤 Auteur
 
 Développé par **DUMOGA Georges**  
-📧 dumogageorges@gmail.com  
+📧 zicombusiness74@gmail.com  
 📍 Lomé, TOGO  
 💼 Web Developer – Passionné par les outils de gestion sur mesure
 
