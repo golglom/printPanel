@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (newToken) => {
     setLoading(true); 
     try {
-      await new Promise((res) => setTimeout(res, 3000));
+      await new Promise((res) => setTimeout(res, 1000));
       localStorage.setItem('token', newToken);
       setToken(newToken);
       setIsAuthenticated(true);
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     setLoading(true);
     try {
-      await new Promise((res) => setTimeout(res, 3000));
+      await new Promise((res) => setTimeout(res, 1000));
       localStorage.removeItem('token');
       setToken(null);
       setIsAuthenticated(false);
