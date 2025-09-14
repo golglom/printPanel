@@ -1,23 +1,33 @@
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import '../styles/layout.css';
+import Loading from './Loading'; 
 
 function Layout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { logout } = useAuth();
   const [showSidebar, setShowSidebar] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
 
+  // couleur de fond appliquée une fois
   useEffect(() => {
     document.body.style.backgroundColor = '#0d1117';
   }, []);
+
+  useEffect(() => {
+    setPageLoading(true);
+    const timer = setTimeout(() => setPageLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, [location]);
 
   return (
     <div className="d-flex flex-column min-vh-100 layout-container text-white">
@@ -56,8 +66,14 @@ function Layout() {
           </button>
         </aside>
 
-        <main className="flex-grow-1 p-4 animated-main">
-          <Outlet />
+        <main className="flex-grow-1 p-4 animated-main position-relative">
+          {pageLoading ? (
+            <div className="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50" style={{zIndex: 10}}>
+              <Loading />
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </main>
       </div>
     </div>
