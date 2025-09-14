@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,21 +26,10 @@ const PublicRoute = ({ children }) => {
 };
 
 function AppWithLoading() {
-  const { loading: authLoading } = useAuth();
-  const location = useLocation();
-  const [pageLoading, setPageLoading] = useState(false);
-
-  useEffect(() => {
-    setPageLoading(true);
-    const timer = setTimeout(() => setPageLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, [location]);
-
-  const isLoading = authLoading || pageLoading;
-
+  const { loading } = useAuth();
   return (
     <>
-      {isLoading && (
+      {loading && (
         <div className="loading-overlay">
           <Loading />
         </div>
